@@ -1,4 +1,6 @@
 import pygame as pg
+import sys
+from pygame.locals import *
 
 pg.init()
 
@@ -11,9 +13,10 @@ walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2
 char = pg.image.load("CharakterA_char.png")
 ducking = pg.image.load("Charakter_A_ducking.png")
 screenWidth = 1200
+bg = pg.image.load("bg.png")
 
 clock = pg.time.Clock()
-#player
+
 class player(object):
     def __init__(self, x, y, width, height):
         self.x = x
@@ -29,13 +32,14 @@ class player(object):
         self.walkCount = 0
         
 
-
+win.blit(bg, (0,0))
 
 
 def redrawGameWindow():
     global walkCount
 
-    win.fill((255,0,0))
+    win.blit(bg, (0,0))
+
 
     if dieter.walkCount + 1 >= 25:
         dieter.walkCount = 0
@@ -50,7 +54,8 @@ def redrawGameWindow():
         win.blit(ducking, (dieter.x, dieter.y))
     else:
         win.blit(char, (dieter.x,dieter.y))
-        
+
+
 
     pg.display.update()
 
