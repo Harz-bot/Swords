@@ -8,8 +8,8 @@ win = pg.display.set_mode((1200,800))
 
 pg.display.set_caption("Schlag den Dietron")
 
-walkRight = [pg.image.load("pics/pics/CharakterA_R_1.png"), pg.image.load("pics/pics/CharakterA_R_2.png"), pg.image.load("pics/pics/CharakterA_R_3.png"), pg.image.load("pics/pics/CharakterA_R_4.png"), pg.image.load("pics/pics/CharakterA_R_5.png"), pg.image.load("pics/pics/CharakterA_R_6.png"), pg.image.load("pics/pics/CharakterA_R_7.png"), pg.image.load("pics/pics/CharakterA_R_8.png"), pg.image.load("pics/pics/CharakterA_R_9.png")]
-walkLeft = [pg.image.load("pics/pics/CharakterA_L_1.png"), pg.image.load("pics/pics/CharakterA_L_2.png"), pg.image.load("pics/pics/CharakterA_L_3.png"), pg.image.load("pics/pics/CharakterA_L_4.png"), pg.image.load("pics/pics/CharakterA_L_5.png"), pg.image.load("pics/pics/CharakterA_L_6.png"), pg.image.load("pics/pics/CharakterA_L_7.png"), pg.image.load("pics/pics/CharakterA_L_8.png"), pg.image.load("pics/pics/CharakterA_L_9.png")]
+walkRight = [pg.image.load("pics/CharakterA_R_1.png"), pg.image.load("pics/CharakterA_R_2.png"), pg.image.load("pics/CharakterA_R_3.png"), pg.image.load("pics/CharakterA_R_4.png"), pg.image.load("pics/CharakterA_R_5.png"), pg.image.load("pics/CharakterA_R_6.png"), pg.image.load("pics/CharakterA_R_7.png"), pg.image.load("pics/CharakterA_R_8.png"), pg.image.load("pics/CharakterA_R_9.png")]
+walkLeft = [pg.image.load("pics/CharakterA_L_1.png"), pg.image.load("pics/CharakterA_L_2.png"), pg.image.load("pics/CharakterA_L_3.png"), pg.image.load("pics/CharakterA_L_4.png"), pg.image.load("pics/CharakterA_L_5.png"), pg.image.load("pics/CharakterA_L_6.png"), pg.image.load("pics/CharakterA_L_7.png"), pg.image.load("pics/CharakterA_L_8.png"), pg.image.load("pics/CharakterA_L_9.png")]
 char = pg.image.load("pics/CharakterA_char.png")
 ducking = pg.image.load("pics/Charakter_A_ducking.png")
 screenWidth = 1200
