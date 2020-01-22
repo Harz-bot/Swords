@@ -4,11 +4,12 @@ pg.init()
 
 win = pg.display.set_mode((1200,800))
 
-pg.display.set_caption("NIDHOG")
+pg.display.set_caption("Schlag den Dietron")
 
 walkRight = [pg.image.load("CharackterA_R_1.png"), pg.image.load("CharackterA_R_2.png"), pg.image.load("CharackterA_R_3.png"), pg.image.load("CharackterA_R_4.png"), pg.image.load("CharackterA_R_5.png"), pg.image.load("CharackterA_R_6.png"), pg.image.load("CharackterA_R_7.png"), pg.image.load("CharackterA_R_8.png"), pg.image.load("CharackterA_R_9.png")]
 walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2.png"), pg.image.load("CharackterA_L_3.png"), pg.image.load("CharackterA_L_4.png"), pg.image.load("CharackterA_L_5.png"), pg.image.load("CharackterA_L_6.png"), pg.image.load("CharackterA_L_7.png"), pg.image.load("CharackterA_L_8.png"), pg.image.load("CharackterA_L_9.png")]
 char = pg.image.load("CharakterA_char.png")
+ducking = pg.image.load("Charakter_A_ducking.png")
 screenWidth = 1200
 
 clock = pg.time.Clock()
@@ -24,6 +25,7 @@ class player(object):
         self.jumpCount = 10
         self.left = False
         self.right = False
+        self.ducking = False
         self.walkCount = 0
         
 
@@ -35,7 +37,7 @@ def redrawGameWindow():
 
     win.fill((255,0,0))
 
-    if dieter.walkCount + 1 >= 27:
+    if dieter.walkCount + 1 >= 25:
         dieter.walkCount = 0
 
     if dieter.left:
@@ -44,6 +46,8 @@ def redrawGameWindow():
     elif dieter.right:
         win.blit(walkRight[dieter.walkCount//3], (dieter.x,dieter.y))
         dieter.walkCount += 1
+    elif dieter.ducking:
+        win.blit(ducking, (dieter.x, dieter.y))
     else:
         win.blit(char, (dieter.x,dieter.y))
         
@@ -54,7 +58,8 @@ def redrawGameWindow():
 dieter = player(300, 700, 64, 64)
 run = True
 while run:
-    clock.tick(27)
+    
+    clock.tick(25)
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -66,13 +71,22 @@ while run:
         dieter.x -= dieter.vel
         dieter.left = True
         dieter.rigt = False
+        dieter.ducking = False
     elif keys[pg.K_RIGHT] and dieter.x < screenWidth - dieter.width - dieter.vel:
         dieter.x += dieter.vel
         dieter.right = True
         dieter.left = False
+        dieter.ducking = False
+    elif keys[pg.K_DOWN]:
+        dieter.right = False
+        dieter.left = False
+        dieter.ducking = True
+    elif keys[pg.K_ESCAPE]:
+        run = False
     else:
         dieter.right = False
         dieter.left = False
+        
         dieter.walkCount = 0
    
     
@@ -82,6 +96,7 @@ while run:
             dieter.isJump = True
             dieter.right = False
             dieter.left = False
+            dieter.ducking = False
             dieter.walkCount = 0
     else:
         if dieter.jumpCount >= -10:
