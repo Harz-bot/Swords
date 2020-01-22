@@ -13,17 +13,21 @@ screenWidth = 1200
 
 clock = pg.time.Clock()
 
-x = 50
-y = 700
-width = 40
-height = 60
-vel = 10
+class player(object):
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self. vel = 5
+        self.isJump = False
+        self.jumpCount = 10
+        self.left = False
+        self.right = False
+        self.walkCount = 0
+        
 
-isJump = False
-jumpCount = 10
-left = False
-right = False
-walkCount = 0
+
 
 
 def redrawGameWindow():
@@ -31,22 +35,23 @@ def redrawGameWindow():
 
     win.fill((255,0,0))
 
-    if walkCount + 1 >= 27:
-        walkCount = 0
+    if dieter.walkCount + 1 >= 27:
+        dieter.walkCount = 0
 
-    if left:
-        win.blit(walkLeft[walkCount//3], (x,y))
-        walkCount += 1
-    elif right:
-        win.blit(walkRight[walkCount//3], (x,y))
-        walkCount += 1
+    if dieter.left:
+        win.blit(walkLeft[dieter.walkCount//3], (dieter.x,dieter.y))
+        dieter.walkCount += 1
+    elif dieter.right:
+        win.blit(walkRight[dieter.walkCount//3], (dieter.x,dieter.y))
+        dieter.walkCount += 1
     else:
-        win.blit(char, (x,y))
+        win.blit(char, (dieter.x,dieter.y))
         
 
     pg.display.update()
 
-
+#mainloop
+dieter = player(300, 700, 64, 64)
 run = True
 while run:
     clock.tick(27)
@@ -57,37 +62,37 @@ while run:
 
     keys = pg.key.get_pressed()
 
-    if keys[pg.K_LEFT] and x > vel:
-        x -= vel
-        left = True
-        rigt = False
-    elif keys[pg.K_RIGHT] and x < screenWidth - width - vel:
-        x += vel
-        right = True
-        left = False
+    if keys[pg.K_LEFT] and dieter.x > dieter.vel:
+        dieter.x -= dieter.vel
+        dieter.left = True
+        dieter.rigt = False
+    elif keys[pg.K_RIGHT] and dieter.x < screenWidth - dieter.width - dieter.vel:
+        dieter.x += dieter.vel
+        dieter.right = True
+        dieter.left = False
     else:
-        right = False
-        left = False
-        walkCount = 0
+        dieter.right = False
+        dieter.left = False
+        dieter.walkCount = 0
    
     
-    if not (isJump):
+    if not (dieter.isJump):
        
         if keys[pg.K_UP]:
-            isJump = True
-            right = False
-            left = False
-            walkCount = 0
+            dieter.isJump = True
+            dieter.right = False
+            dieter.left = False
+            dieter.walkCount = 0
     else:
-        if jumpCount >= -10:
+        if dieter.jumpCount >= -10:
             neg = 1
-            if jumpCount < 0:
+            if dieter.jumpCount < 0:
                 neg = -1
-            y -= (jumpCount ** 2) * 0.3 * neg
-            jumpCount -= 1
+            dieter.y -= (dieter.jumpCount ** 2) * 0.3 * neg
+            dieter.jumpCount -= 1
         else:        
-            isJump = False
-            jumpCount = 10
+            dieter.isJump = False
+            dieter.jumpCount = 10
             
     redrawGameWindow()
 
