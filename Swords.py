@@ -6,7 +6,12 @@ win = pg.display.set_mode((1200,800))
 
 pg.display.set_caption("NIDHOG")
 
+walkRight = [pg.image.load("CharackterA_R_1.png"), pg.image.load("CharackterA_R_2.png"), pg.image.load("CharackterA_R_3.png"), pg.image.load("CharackterA_R_4.png"), pg.image.load("CharackterA_R_5.png"), pg.image.load("CharackterA_R_6.png"), pg.image.load("CharackterA_R_7.png"), pg.image.load("CharackterA_R_8.png"), pg.image.load("CharackterA_R_9.png")]
+walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2.png"), pg.image.load("CharackterA_L_3.png"), pg.image.load("CharackterA_L_4.png"), pg.image.load("CharackterA_L_5.png"), pg.image.load("CharackterA_L_6.png"), pg.image.load("CharackterA_L_7.png"), pg.image.load("CharackterA_L_8.png"), pg.image.load("CharackterA_L_9.png")]
+char = pg.image.load("CharakterA_char.png")
 screenWidth = 1200
+
+clock = pg.time.Clock()
 
 x = 50
 y = 700
@@ -16,19 +21,35 @@ vel = 10
 
 isJump = False
 jumpCount = 10
-ducking = False
+left = False
+right = False
+walkCount = 0
 
 
 def redrawGameWindow():
-    
-    win.fill((0,0,0))
-    Charakter = pg.draw.rect(win, (255 ,0 ,0), (x, y, width, height))
+    global walkCount
+
+    win.fill((255,0,0))
+
+    if walkCount + 1 >= 27:
+        walkCount = 0
+
+    if left:
+        win.blit(walkLeft[walkCount//3], (x,y))
+        walkCount += 1
+    elif right:
+        win.blit(walkRight[walkCount//3], (x,y))
+        walkCount += 1
+    else:
+        win.blit(char, (x,y))
+        
+
     pg.display.update()
 
 
 run = True
 while run:
-    pg.time.delay(25)
+    clock.tick(27)
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -38,23 +59,25 @@ while run:
 
     if keys[pg.K_LEFT] and x > vel:
         x -= vel
-    if keys[pg.K_RIGHT] and x < screenWidth - width - vel:
+        left = True
+        rigt = False
+    elif keys[pg.K_RIGHT] and x < screenWidth - width - vel:
         x += vel
-    if keys[pg.K_DOWN]:
-        ducking = True
-    if ducking is True:
-        height = 30
-        y+30
-        
-            
-    
-            
-        
+        right = True
+        left = False
+    else:
+        right = False
+        left = False
+        walkCount = 0
+   
     
     if not (isJump):
        
         if keys[pg.K_UP]:
             isJump = True
+            right = False
+            left = False
+            walkCount = 0
     else:
         if jumpCount >= -10:
             neg = 1
