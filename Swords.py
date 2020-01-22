@@ -20,7 +20,7 @@ class player(object):
         self.y = y
         self.width = width
         self.height = height
-        self. vel = 5
+        self. vel = 10
         self.isJump = False
         self.jumpCount = 10
         self.left = False
