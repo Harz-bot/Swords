@@ -13,9 +13,11 @@ walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2
 char = pg.image.load("CharakterA_char.png")
 ducking = pg.image.load("Charakter_A_ducking.png")
 screenWidth = 1200
-bg = pg.image.load("bg.png")
+bg = [pg.image.load("bg_1.png"), pg.image.load("bg_2.png"), pg.image.load("bg_3.png")]
 
 clock = pg.time.Clock()
+
+winCount = 0
 
 class player(object):
     def __init__(self, x, y, width, height):
@@ -32,13 +34,12 @@ class player(object):
         self.walkCount = 0
         
 
-win.blit(bg, (0,0))
 
 
 def redrawGameWindow():
     global walkCount
 
-    win.blit(bg, (0,0))
+    win.blit(bg[winCount//3], (0,0))
 
 
     if dieter.walkCount + 1 >= 25:
