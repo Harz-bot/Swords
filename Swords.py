@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 from pygame.locals import *
+import os
 
 pg.init()
 
@@ -19,7 +20,6 @@ clock = pg.time.Clock()
 
 
 #player
->>>>>>> deemachtmit
 class player(object):
     def __init__(self, x, y, width, height):
         self.x = x
