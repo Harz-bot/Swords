@@ -45,8 +45,7 @@ def redrawGameWindow():
     global walkCount
 
     
-    win.blit(bg[bgframe//3], (0,0))
-    
+    win.blit(bg[bgframe-1], (0,0))
 
     if dieter.walkCount + 1 >= frames:
         dieter.walkCount = 0
