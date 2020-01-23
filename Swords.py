@@ -13,16 +13,19 @@ walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2
 char = pg.image.load("CharakterA_char.png")
 ducking = pg.image.load("Charakter_A_ducking.png")
 screenWidth = 1200
-bg = [pg.image.load("bg_1.png"), pg.image.load("bg_2.png"), pg.image.load("bg_3.png")]
-background = True
 tframe = pg.time.Clock()
-bgframe = 1
 
 frames = 24
 
-eventt = USEREVENT + 1
+# Hintergrund laden
+# und mit dem ersten Bild anfangen
+bg = [pg.image.load("bg_1.png"), pg.image.load("bg_2.png"), pg.image.load("bg_3.png")]
+background = True
+bgframe = 1
 
-pg.time.set_timer(eventt, 500)
+# Zeitintervall: Hintergrund-Animation
+bgtick = USEREVENT + 1
+pg.time.set_timer(bgtick, 500)
 
 class player(object):
     def __init__(self, x, y, width, height):
@@ -81,11 +84,9 @@ while run:
     
     
     
-    #Background Animation
     
-    
-    
-    if pg.event.get(eventt):
+    # Hintergrund-Animation
+    if pg.event.get(bgtick):
         bgframe += 1
         if bgframe > 3:
             bgframe = 1
