@@ -139,7 +139,7 @@ while run:
                 dieter.right = True
             else :
                 dieter.right = False
-            if keys[pg.K_RIGHT] :
+            if keys[pg.K_LEFT]:
                 dieter.left = True
             else :
                 dieter.left = False
