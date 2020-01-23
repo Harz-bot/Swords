@@ -137,10 +137,14 @@ while run:
             dieter.isJump = True
             if keys[pg.K_RIGHT] :
                 dieter.right = True
+                if dieter.x == 1130:
+                    dieter.right = False
             else :
                 dieter.right = False
             if keys[pg.K_LEFT]:
                 dieter.left = True
+                if dieter.x == 10:
+                    dieter.left = False
             else :
                 dieter.left = False
             dieter.ducking = False
@@ -162,7 +166,7 @@ while run:
     tframe.tick(frames)
     tick = pg.time.get_ticks()
 
-
+    print(dieter.x)
 
  
 
