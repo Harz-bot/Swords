@@ -2,6 +2,9 @@ import pygame as pg
 import sys
 from pygame.locals import *
 
+frames = 25
+
+
 pg.init()
 
 win = pg.display.set_mode((1200,800))
@@ -15,10 +18,12 @@ ducking = pg.image.load("Charakter_A_ducking.png")
 screenWidth = 1200
 tframe = pg.time.Clock()
 
-frames = 24
 
 # Hintergrund laden
+#######################################
+
 # und mit dem ersten Bild anfangen
+
 bg = [pg.image.load("bg_1.png"), pg.image.load("bg_2.png"), pg.image.load("bg_3.png")]
 background = True
 bgframe = 1
@@ -26,6 +31,9 @@ bgframe = 1
 # Zeitintervall: Hintergrund-Animation
 bgtick = USEREVENT + 1
 pg.time.set_timer(bgtick, 500)
+
+
+
 
 class player(object):
     def __init__(self, x, y, width, height):
@@ -127,20 +135,14 @@ while run:
     if not (dieter.isJump):
         if keys[pg.K_UP]:
             dieter.isJump = True
-            dieter.right = False
-            dieter.left = False
-            dieter.ducking = False
-            dieter.walkCount = 0
-        if keys[pg.K_UP] and keys[pg.K_RIGHT]:
-            dieter.isJump = True
-            dieter.right = True
-            dieter.left = False
-            dieter.ducking = False
-            dieter.walkCount = 0
-        if keys[pg.K_UP] and keys[pg.K_LEFT]:
-            dieter.isJump = True
-            dieter.right = False
-            dieter.left = True
+            if keys[pg.K_RIGHT] :
+                dieter.right = True
+            else :
+                dieter.right = False
+            if keys[pg.K_RIGHT] :
+                dieter.left = True
+            else :
+                dieter.left = False
             dieter.ducking = False
             dieter.walkCount = 0
         
