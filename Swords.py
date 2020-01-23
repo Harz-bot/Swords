@@ -79,6 +79,7 @@ def redrawGameWindow():
     
     
 #Erfasse Bewegung pro Frame
+# Startposition + WAS?! 64 ? bildbreite?
 
 dieter = player(300, 700, 64, 64)
 run = True
