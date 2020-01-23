@@ -125,13 +125,25 @@ while run:
    
     
     if not (dieter.isJump):
-       
         if keys[pg.K_UP]:
             dieter.isJump = True
             dieter.right = False
             dieter.left = False
             dieter.ducking = False
             dieter.walkCount = 0
+        if keys[pg.K_UP] and keys[pg.K_RIGHT]:
+            dieter.isJump = True
+            dieter.right = True
+            dieter.left = False
+            dieter.ducking = False
+            dieter.walkCount = 0
+        if keys[pg.K_UP] and keys[pg.K_LEFT]:
+            dieter.isJump = True
+            dieter.right = False
+            dieter.left = True
+            dieter.ducking = False
+            dieter.walkCount = 0
+        
     else:
         if dieter.jumpCount >= -10:
             neg = 1
