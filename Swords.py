@@ -20,7 +20,9 @@ bgframe = 1
 
 frames = 24
 
+eventt = USEREVENT + 1
 
+pg.time.set_timer(eventt, 500)
 
 class player(object):
     def __init__(self, x, y, width, height):
@@ -70,19 +72,29 @@ def redrawGameWindow():
 
 dieter = player(300, 700, 64, 64)
 run = True
+tick = pg.time.get_ticks()
 while run:
-
     text = (
-    "bgframe: %s tframeGetTime %s  tframeRawTime %s tframeFPS %s"
-    % (bgframe, tframe.get_time(), tframe.get_rawtime(), tframe.get_fps())
+    "bgframe: %s tframeGetTime %s  tframeRawTime %s tframeFPS %s gettick %s"
+    % (bgframe, tframe.get_time(), tframe.get_rawtime(), tframe.get_fps(), pg.time.get_ticks())
     )
     print(text)
+    
+    
+    
     #Background Animation
-    bgframe += 1
-    if bgframe > 3:
-        bgframe = 1
+    
+    
+    
+    if pg.event.get(eventt):
+        bgframe += 1
+        if bgframe > 3:
+            bgframe = 1
+            tick = 0
+        
+        
+        
 
-    tframe.tick(frames)
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -133,6 +145,9 @@ while run:
             dieter.jumpCount = 10
             
     redrawGameWindow()
+    
+    tframe.tick(frames)
+    tick = pg.time.get_ticks()
 
 
 
