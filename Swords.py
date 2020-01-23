@@ -5,18 +5,31 @@ from pygame.locals import *
 frames = 25
 
 
+bildBreite = 1200
+bildHoehe = 800
+
+player_breite = 64
+player_hoehe = 64
+
+player1_startX = 300
+player1_startY = 700
+
+
 pg.init()
 
-win = pg.display.set_mode((1200,800))
+
+
+win = pg.display.set_mode((bildBreite,bildHoehe))
 
 pg.display.set_caption("Schlag den Dietron")
-rand_links = 10
-rand_rechts = 1130
+
+rand_links = player_breite
+rand_rechts = bildBreite - player_breite
+
 walkRight = [pg.image.load("CharackterA_R_1.png"), pg.image.load("CharackterA_R_2.png"), pg.image.load("CharackterA_R_3.png"), pg.image.load("CharackterA_R_4.png"), pg.image.load("CharackterA_R_5.png"), pg.image.load("CharackterA_R_6.png"), pg.image.load("CharackterA_R_7.png"), pg.image.load("CharackterA_R_8.png"), pg.image.load("CharackterA_R_9.png")]
 walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2.png"), pg.image.load("CharackterA_L_3.png"), pg.image.load("CharackterA_L_4.png"), pg.image.load("CharackterA_L_5.png"), pg.image.load("CharackterA_L_6.png"), pg.image.load("CharackterA_L_7.png"), pg.image.load("CharackterA_L_8.png"), pg.image.load("CharackterA_L_9.png")]
 char = pg.image.load("CharakterA_char.png")
 ducking = pg.image.load("Charakter_A_ducking.png")
-screenWidth = 1200
 tframe = pg.time.Clock()
 
 
@@ -80,17 +93,18 @@ def redrawGameWindow():
     
     
 #Erfasse Bewegung pro Frame
-# Startposition + WAS?! 64 ? bildbreite?
 
-dieter = player(300, 700, 64, 64)
 run = True
 tick = pg.time.get_ticks()
+
+dieter = player(player1_startX, player1_startY, player_breite, player_hoehe)
+
 while run:
     text = (
     "bgframe: %s tframeGetTime %s  tframeRawTime %s tframeFPS %s gettick %s"
     % (bgframe, tframe.get_time(), tframe.get_rawtime(), tframe.get_fps(), pg.time.get_ticks())
     )
-    print(text)
+    #print(text)
     
     
     
@@ -111,12 +125,12 @@ while run:
 
     keys = pg.key.get_pressed()
 
-    if keys[pg.K_LEFT] and dieter.x > dieter.vel:
+    if keys[pg.K_LEFT] and dieter.x > rand_links:
         dieter.x -= dieter.vel
         dieter.left = True
         dieter.rigt = False
         dieter.ducking = False
-    elif keys[pg.K_RIGHT] and dieter.x < screenWidth - dieter.width - dieter.vel:
+    elif keys[pg.K_RIGHT] and dieter.x < rand_rechts:
         dieter.x += dieter.vel
         dieter.right = True
         dieter.left = False
@@ -139,14 +153,16 @@ while run:
             dieter.isJump = True
             if keys[pg.K_RIGHT] :
                 dieter.right = True
-                if dieter.x == rand_rechts:
+                if dieter.x >= rand_rechts:
                     dieter.right = False
+                print("dX %s rand_rechts %s" % (dieter.x, rand_rechts))
             else :
                 dieter.right = False
             if keys[pg.K_LEFT]:
                 dieter.left = True
-                if dieter.x == rand_links:
+                if dieter.x <= rand_links:
                     dieter.left = False
+                print("dX %s rand_links %s" % (dieter.x, rand_links))
             else :
                 dieter.left = False
             dieter.ducking = False
