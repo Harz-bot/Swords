@@ -88,7 +88,7 @@ while run:
     "bgframe: %s tframeGetTime %s  tframeRawTime %s tframeFPS %s gettick %s"
     % (bgframe, tframe.get_time(), tframe.get_rawtime(), tframe.get_fps(), pg.time.get_ticks())
     )
-    print(text)
+    # print(text)
     
     
     
@@ -166,7 +166,7 @@ while run:
     tframe.tick(frames)
     tick = pg.time.get_ticks()
 
-    print(dieter.x)
+    print("X: %s  Y: %s" % (dieter.x, dieter.y))
 
  
 
