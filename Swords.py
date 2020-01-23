@@ -166,7 +166,6 @@ while run:
     tframe.tick(frames)
     tick = pg.time.get_ticks()
 
-    print(dieter.x)
 
  
 
