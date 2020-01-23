@@ -10,7 +10,8 @@ pg.init()
 win = pg.display.set_mode((1200,800))
 
 pg.display.set_caption("Schlag den Dietron")
-
+rand_links = 10
+rand_rechts = 1130
 walkRight = [pg.image.load("CharackterA_R_1.png"), pg.image.load("CharackterA_R_2.png"), pg.image.load("CharackterA_R_3.png"), pg.image.load("CharackterA_R_4.png"), pg.image.load("CharackterA_R_5.png"), pg.image.load("CharackterA_R_6.png"), pg.image.load("CharackterA_R_7.png"), pg.image.load("CharackterA_R_8.png"), pg.image.load("CharackterA_R_9.png")]
 walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2.png"), pg.image.load("CharackterA_L_3.png"), pg.image.load("CharackterA_L_4.png"), pg.image.load("CharackterA_L_5.png"), pg.image.load("CharackterA_L_6.png"), pg.image.load("CharackterA_L_7.png"), pg.image.load("CharackterA_L_8.png"), pg.image.load("CharackterA_L_9.png")]
 char = pg.image.load("CharakterA_char.png")
@@ -89,7 +90,7 @@ while run:
     "bgframe: %s tframeGetTime %s  tframeRawTime %s tframeFPS %s gettick %s"
     % (bgframe, tframe.get_time(), tframe.get_rawtime(), tframe.get_fps(), pg.time.get_ticks())
     )
-    # print(text)
+    print(text)
     
     
     
@@ -138,13 +139,13 @@ while run:
             dieter.isJump = True
             if keys[pg.K_RIGHT] :
                 dieter.right = True
-                if dieter.x == 1130:
+                if dieter.x == rand_rechts:
                     dieter.right = False
             else :
                 dieter.right = False
             if keys[pg.K_LEFT]:
                 dieter.left = True
-                if dieter.x == 10:
+                if dieter.x == rand_links:
                     dieter.left = False
             else :
                 dieter.left = False
@@ -167,7 +168,10 @@ while run:
     tframe.tick(frames)
     tick = pg.time.get_ticks()
 
+<<<<<<< HEAD
+=======
     print("X: %s  Y: %s" % (dieter.x, dieter.y))
+>>>>>>> 7b7d406ba3e2015b7b8d9ef8e648280d2f9bf4ed
 
  
 
