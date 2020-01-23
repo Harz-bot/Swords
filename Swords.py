@@ -90,7 +90,6 @@ while run:
         bgframe += 1
         if bgframe > 3:
             bgframe = 1
-            tick = 0
         
         
         
