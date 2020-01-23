@@ -167,6 +167,10 @@ while run:
     tframe.tick(frames)
     tick = pg.time.get_ticks()
 
+<<<<<<< HEAD
+=======
+    print("X: %s  Y: %s" % (dieter.x, dieter.y))
+>>>>>>> 7b7d406ba3e2015b7b8d9ef8e648280d2f9bf4ed
 
  
 
