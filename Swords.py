@@ -8,13 +8,6 @@ frames = 25
 bildBreite = 1200
 bildHoehe = 800
 
-player_breite = 64
-player_hoehe = 64
-
-
-
-
-
 
 player1_startX = 400
 player1_startY = 700
@@ -28,8 +21,6 @@ win = pg.display.set_mode((bildBreite, bildHoehe))
 
 pg.display.set_caption("Schlag den Dietron")
 
-rand_links =  player_breite - player_breite
-rand_rechts = bildBreite - player_breite
 
 walkRight = [pg.image.load("CharackterA_R_1.png"), pg.image.load("CharackterA_R_2.png"), pg.image.load("CharackterA_R_3.png"), pg.image.load("CharackterA_R_4.png"), pg.image.load("CharackterA_R_5.png"), pg.image.load("CharackterA_R_6.png"), pg.image.load("CharackterA_R_7.png"), pg.image.load("CharackterA_R_8.png"), pg.image.load("CharackterA_R_9.png")]
 walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2.png"), pg.image.load("CharackterA_L_3.png"), pg.image.load("CharackterA_L_4.png"), pg.image.load("CharackterA_L_5.png"), pg.image.load("CharackterA_L_6.png"), pg.image.load("CharackterA_L_7.png"), pg.image.load("CharackterA_L_8.png"), pg.image.load("CharackterA_L_9.png")]
@@ -38,9 +29,17 @@ ducking = pg.image.load("Charakter_A_ducking.png")
 tframe = pg.time.Clock()
 
 
-char_width = char.get_rect().size
+player_breite = char.get_rect().size[0]
+player_hoehe = char.get_rect().size[1]
 
 
+player_mitte = player_breite/2
+print("PM %s" % player_mitte)
+rand_links = 0
+rand_rechts = bildBreite - player_breite
+
+print("RL %s" % rand_links)
+print("RR %s" % rand_rechts)
 
 
 # Hintergrund laden
@@ -65,7 +64,7 @@ class player(object):
         self.y = y
         self.width = width
         self.height = height
-        self. vel = 10
+        self.vel = 20
         self.isJump = False
         self.jumpCount = 10
         self.left = False
@@ -138,14 +137,24 @@ while run:
     #########################
     keys = pg.key.get_pressed()
 
-    if keys[pg.K_LEFT] and dieter.x > rand_links: #geändert
-        dieter.x -= dieter.vel
-        dieter.left = True
+    if keys[pg.K_LEFT]: #geändert
+        print("DX %s" % dieter.x)
+        if (dieter.x-dieter.vel ) >= rand_links :
+            dieter.x -= dieter.vel
+            dieter.left = True
+        else :
+            dieter.x = rand_links
+            dieter.left = False
         dieter.rigt = False
         dieter.ducking = False
-    elif keys[pg.K_RIGHT] and dieter.x < rand_rechts:
-        dieter.x += dieter.vel
-        dieter.right = True
+    elif keys[pg.K_RIGHT] :
+        print("DX %s" % dieter.x)
+        if dieter.x+dieter.vel <= rand_rechts :
+            dieter.x += dieter.vel
+            dieter.right = True
+        else :
+            dieter.x = rand_rechts
+            dieter.right = False
         dieter.left = False
         dieter.ducking = False
     elif keys[pg.K_DOWN]:
@@ -198,6 +207,7 @@ while run:
     tick = pg.time.get_ticks()
 
     print("X: %s  Y: %s" % (dieter.x, dieter.y))
-    print(char_width)
+    #print(player_breite)
+    #print(player_hoehe)
     
 
