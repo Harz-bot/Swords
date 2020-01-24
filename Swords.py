@@ -101,10 +101,10 @@ def updateBewegung():
         if player[curPL].bewegung + 1 >= frames:
             player[curPL].bewegung = 0
 
-        if player[curPL].left:
+        if player[curPL].links:
             win.blit(laufLinks[curPL][player[curPL].bewegung//3], (player[curPL].x,player[curPL].y))
             player[curPL].bewegung += 1
-        elif player[curPL].right:
+        elif player[curPL].rechts:
             win.blit(laufRechts[curPL][player[curPL].bewegung//3], (player[curPL].x,player[curPL].y))
             player[curPL].bewegung += 1
         elif player[curPL].ducking:
@@ -115,10 +115,10 @@ def updateBewegung():
         if player[curPL].bewegung + 1 >= frames:
             player[curPL].bewegung = 0
 
-        if player[curPL].left:
+        if player[curPL].links:
             win.blit(laufLinks[curPL][player[curPL].bewegung//3], (player[curPL].x,player[curPL].y))
             player[curPL].bewegung += 1
-        elif player[curPL].right:
+        elif player[curPL].rechts:
             win.blit(laufRechts[curPL][player[curPL].bewegung//3], (player[curPL].x,player[curPL].y))
             player[curPL].bewegung += 1
         elif player[curPL].ducking:
@@ -140,9 +140,9 @@ class playerO(object):
         self.height = height
         self.speed = speeeeed
         self.sprungMeter = sprungHoehe
-        self.isJump = False
-        self.left = False
-        self.right = False
+        self.springt = False
+        self.links = False
+        self.rechts = False
         self.ducking = False
         self.bewegung = 0
         
@@ -159,18 +159,18 @@ def getPlayerBinds(curPL) :
     
     if curPL == 0 :
         # Nur wenn man noch nicht gesprungen ist, kann man nochmal nach oben drücken
-        if not player[0].isJump:
-            player[0].isJump = keys[pg.K_UP]
+        if not player[0].springt:
+            player[0].springt = keys[pg.K_UP]
         player[0].ducking = keys[pg.K_DOWN]
-        player[0].left = keys[pg.K_LEFT]
-        player[0].right = keys[pg.K_RIGHT]
+        player[0].links = keys[pg.K_LEFT]
+        player[0].rechts = keys[pg.K_RIGHT]
     
     elif curPL == 1 :
-        if not player[1].isJump:
-            player[1].isJump = keys[pg.K_w]
+        if not player[1].springt:
+            player[1].springt = keys[pg.K_w]
         player[1].ducking = keys[pg.K_s]
-        player[1].left = keys[pg.K_a]
-        player[1].right = keys[pg.K_d]
+        player[1].links = keys[pg.K_a]
+        player[1].rechts = keys[pg.K_d]
     
     if keys[pg.K_ESCAPE] :
         escape = True
@@ -184,20 +184,20 @@ def getPlayerKeys(curPL):
 
     # Resette erst mal die gedrückten Tasten vom letzten durchlauf
     
-    player[curPL].left = False
-    player[curPL].right = False
+    player[curPL].links = False
+    player[curPL].rechts = False
     player[curPL].ducking = False
 
     #frag ma die tasten vom Spieler ab und überprüfe ob escape gedrückt wurde ( okay... escape funzt iwie nich <.< ... )
     escape = getPlayerBinds(curPL)
     
     
-    if player[curPL].left:
+    if player[curPL].links:
         if (player[curPL].x-player[curPL].speed ) >= rand_links :
             player[curPL].x -= player[curPL].speed
         else :
             player[curPL].x = rand_links
-    elif player[curPL].right :
+    elif player[curPL].rechts :
         if player[curPL].x+player[curPL].speed <= rand_rechts :
             player[curPL].x += player[curPL].speed
         else :
@@ -213,16 +213,16 @@ def getPlayerKeys(curPL):
     
     
     # achso, es wurde nach oben gedrückt?!?!?!
-    if player[curPL].isJump:
+    if player[curPL].springt:
     
         # Aus dem Rand springen VERBOTEN!!
-        if player[curPL].right :
+        if player[curPL].rechts :
             if player[curPL].x >= rand_rechts:
-                player[curPL].right = False
+                player[curPL].rechts = False
         
-        elif player[curPL].left :
+        elif player[curPL].links :
             if player[curPL].x <= rand_links:
-                player[curPL].left = False
+                player[curPL].links = False
         
         
         
@@ -236,7 +236,7 @@ def getPlayerKeys(curPL):
             player[curPL].sprungMeter  -= 1
         else:
             # Nur wenn der Sprung feddich ist, kann man nochmal nach oben drücken, um zu jumpen
-            player[curPL].isJump = False
+            player[curPL].springt = False
             player[curPL].sprungMeter  = sprungHoehe
 
 
