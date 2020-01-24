@@ -11,7 +11,7 @@ bildHoehe = 800
 player_breite = 64
 player_hoehe = 64
 
-player1_startX = 300
+player1_startX = 400
 player1_startY = 700
 
 
@@ -19,11 +19,11 @@ pg.init()
 
 
 
-win = pg.display.set_mode((bildBreite,bildHoehe))
+win = pg.display.set_mode((bildBreite, bildHoehe))
 
 pg.display.set_caption("Schlag den Dietron")
 
-rand_links = player_breite
+rand_links =  player_breite
 rand_rechts = bildBreite - player_breite
 
 walkRight = [pg.image.load("CharackterA_R_1.png"), pg.image.load("CharackterA_R_2.png"), pg.image.load("CharackterA_R_3.png"), pg.image.load("CharackterA_R_4.png"), pg.image.load("CharackterA_R_5.png"), pg.image.load("CharackterA_R_6.png"), pg.image.load("CharackterA_R_7.png"), pg.image.load("CharackterA_R_8.png"), pg.image.load("CharackterA_R_9.png")]
@@ -118,14 +118,17 @@ while run:
         
         
 
-
+    #Quit den shit
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
 
+
+    #Bewegung dieter
+    #########################
     keys = pg.key.get_pressed()
 
-    if keys[pg.K_LEFT] and dieter.x > rand_links:
+    if keys[pg.K_LEFT] and dieter.x > rand_links - player_breite: #geändert
         dieter.x -= dieter.vel
         dieter.left = True
         dieter.rigt = False
@@ -155,14 +158,14 @@ while run:
                 dieter.right = True
                 if dieter.x >= rand_rechts:
                     dieter.right = False
-                print("dX %s rand_rechts %s" % (dieter.x, rand_rechts))
+                #print("dX %s rand_rechts %s" % (dieter.x, rand_rechts))
             else :
                 dieter.right = False
             if keys[pg.K_LEFT]:
                 dieter.left = True
                 if dieter.x <= rand_links:
                     dieter.left = False
-                print("dX %s rand_links %s" % (dieter.x, rand_links))
+                #print("dX %s rand_links %s" % (dieter.x, rand_links))
             else :
                 dieter.left = False
             dieter.ducking = False
@@ -185,7 +188,7 @@ while run:
     tick = pg.time.get_ticks()
 
     print("X: %s  Y: %s" % (dieter.x, dieter.y))
-
+    
  
 
     
