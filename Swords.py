@@ -4,7 +4,7 @@ from pygame.locals import *
 
 frames = 25
 
-speeeeed = 40
+speeeeed = 30
 
 sprungHoehe = 10
 
@@ -15,6 +15,8 @@ bildHoehe = 800
 player1_startX = 400
 player1_startY = 700
 
+B_player1_startX = 600
+B_player1_startY = 700
 
 pg.init()
 
@@ -24,7 +26,21 @@ win = pg.display.set_mode((bildBreite, bildHoehe))
 
 pg.display.set_caption("Schlag den Dietron")
 
+#player two
+B_walkRight = [pg.image.load("CharackterB_R_1.png"), pg.image.load("CharackterB_R_2.png"), pg.image.load("CharackterB_R_3.png"), pg.image.load("CharackterB_R_4.png"), pg.image.load("CharackterB_R_5.png"), pg.image.load("CharackterB_R_6.png"), pg.image.load("CharackterB_R_7.png"), pg.image.load("CharackterB_R_8.png"), pg.image.load("CharackterB_R_9.png")]
+B_walkLeft = [pg.image.load("CharackterB_L_1.png"), pg.image.load("CharackterB_L_2.png"), pg.image.load("CharackterB_L_3.png"), pg.image.load("CharackterB_L_4.png"), pg.image.load("CharackterB_L_5.png"), pg.image.load("CharackterB_L_6.png"), pg.image.load("CharackterB_L_7.png"), pg.image.load("CharackterB_L_8.png"), pg.image.load("CharackterB_L_9.png")]
+B_char = pg.image.load("CharakterB_char.png")
+B_ducking = pg.image.load("Charakter_B_ducking.png")
 
+B_player_breite = B_char.get_rect().size[0]
+B_player_hoehe = B_char.get_rect().size[1]
+
+B_player_mitte = B_player_breite/2
+print("PM %s" % B_player_mitte)
+B_rand_links = 0
+B_rand_rechts = bildBreite - B_player_breite
+
+#player one
 walkRight = [pg.image.load("CharackterA_R_1.png"), pg.image.load("CharackterA_R_2.png"), pg.image.load("CharackterA_R_3.png"), pg.image.load("CharackterA_R_4.png"), pg.image.load("CharackterA_R_5.png"), pg.image.load("CharackterA_R_6.png"), pg.image.load("CharackterA_R_7.png"), pg.image.load("CharackterA_R_8.png"), pg.image.load("CharackterA_R_9.png")]
 walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2.png"), pg.image.load("CharackterA_L_3.png"), pg.image.load("CharackterA_L_4.png"), pg.image.load("CharackterA_L_5.png"), pg.image.load("CharackterA_L_6.png"), pg.image.load("CharackterA_L_7.png"), pg.image.load("CharackterA_L_8.png"), pg.image.load("CharackterA_L_9.png")]
 char = pg.image.load("CharakterA_char.png")
@@ -60,6 +76,19 @@ pg.time.set_timer(bgtick, 500)
 
 
 
+class B_player(object):
+    def __init__(self, x, y, width, height):
+        self.x = x 
+        self.y = y
+        self.width = width
+        self.height = height
+        self.speed = speeeeed
+        self.isJump = False
+        self.sprungMeter = sprungHoehe
+        self.left = False
+        self.right = False
+        self.ducking = False
+        self.bewegung = 0
 
 class player(object):
     def __init__(self, x, y, width, height):
@@ -99,6 +128,19 @@ def updateBild():
     else:
         win.blit(char, (dieter.x,dieter.y))
 
+    if darius.bewegung + 1 >= frames:
+        darius.bewegung = 0
+
+    if darius.left:
+        win.blit(B_walkLeft[darius.bewegung//3], (darius.x,darius.y))
+        darius.bewegung += 1
+    elif darius.right:
+        win.blit(B_walkRight[darius.bewegung//3], (darius.x,darius.y))
+        darius.bewegung += 1
+    elif darius.ducking:
+        win.blit(B_ducking, (darius.x, darius.y))
+    else:
+        win.blit(B_char, (darius.x,darius.y))
 
     tframe.tick(frames)
 
@@ -113,6 +155,7 @@ run = True
 tick = pg.time.get_ticks()
 
 dieter = player(player1_startX, player1_startY, player_breite, player_hoehe)
+darius = B_player(B_player1_startX, B_player1_startY, B_player_breite, B_player_hoehe)
 
 while run:
 
@@ -129,10 +172,15 @@ while run:
     dieter.right = False
     dieter.ducking = False
 
+    darius.left = False
+    darius.right = False
+    darius.ducking = False
+
     keys = pg.key.get_pressed()
     
-        
-        
+    #############################################################################    
+    ########################################################dieter bewegung 
+
     if keys[pg.K_UP]:
         dieter.isJump = True
         
@@ -155,6 +203,8 @@ while run:
         run = False
     else :
         dieter.bewegung = 0
+
+    
 
     
     
@@ -183,7 +233,62 @@ while run:
         else:        
             dieter.isJump = False
             dieter.sprungMeter  = sprungHoehe
-            
+
+        #########################################################################################################
+       #################################################################################### darius bewegung     #
+
+
+    if keys[pg.K_w]:
+        darius.isJump = True
+        
+    if keys[pg.K_a]: #geändert
+        if (darius.x-darius.speed ) >= rand_links :
+            darius.x -= darius.speed
+            darius.left = True
+        else :
+            darius.x = rand_links
+    elif keys[pg.K_d] :
+        if darius.x+darius.speed <= rand_rechts :
+            darius.x += darius.speed
+            darius.right = True
+        else :
+            darius.x = rand_rechts
+    elif keys[pg.K_s]:
+        darius.ducking = True
+    
+  
+    else :
+        darius.bewegung = 0
+
+    
+
+    
+    
+    
+    if darius.isJump:
+    
+        # Aus dem Rand springen VERBOTEN!!
+        if darius.right :
+            if darius.x >= rand_rechts:
+                darius.right = False
+        
+        elif darius.left :
+            if darius.x <= rand_links:
+                darius.left = False
+        
+        
+        
+        # Sprung "Animation"
+        
+        if darius.sprungMeter  >= -sprungHoehe:
+            neg = 1
+            if darius.sprungMeter  < 0:
+                neg = -1
+            darius.y -= (darius.sprungMeter  ** 2)  * neg
+            darius.sprungMeter  -= 1
+        else:        
+            darius.isJump = False
+            darius.sprungMeter  = sprungHoehe
     
     print("DX %s   ---   DY %s" % ( dieter.x, dieter.y) )
         
