@@ -11,6 +11,11 @@ bildHoehe = 800
 player_breite = 64
 player_hoehe = 64
 
+
+
+
+
+
 player1_startX = 400
 player1_startY = 700
 
@@ -31,6 +36,10 @@ walkLeft = [pg.image.load("CharackterA_L_1.png"), pg.image.load("CharackterA_L_2
 char = pg.image.load("CharakterA_char.png")
 ducking = pg.image.load("Charakter_A_ducking.png")
 tframe = pg.time.Clock()
+
+walkright_width = walkRight[0].get_width()
+walkleft_width = walkLeft[0].get_width()
+
 
 
 # Hintergrund laden
@@ -63,7 +72,9 @@ class player(object):
         self.ducking = False
         self.walkCount = 0
         
-
+class skateboard(object):
+    def __init__(self,x,y,radius,color,facing):
+        self
 
 # FrameUpdate
 def redrawGameWindow():
@@ -189,7 +200,5 @@ while run:
 
     print("X: %s  Y: %s" % (dieter.x, dieter.y))
     
- 
 
-    
-pg.quit()
+    print(walkright_width)
