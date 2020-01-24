@@ -64,7 +64,7 @@ class player(object):
         self.y = y
         self.width = width
         self.height = height
-        self.vel = 20
+        self.speed = 20
         self.isJump = False
         self.jumpCount = 10
         self.left = False
@@ -139,8 +139,8 @@ while run:
 
     if keys[pg.K_LEFT]: #geändert
         print("DX %s" % dieter.x)
-        if (dieter.x-dieter.vel ) >= rand_links :
-            dieter.x -= dieter.vel
+        if (dieter.x-dieter.speed ) >= rand_links :
+            dieter.x -= dieter.speed
             dieter.left = True
         else :
             dieter.x = rand_links
@@ -149,8 +149,8 @@ while run:
         dieter.ducking = False
     elif keys[pg.K_RIGHT] :
         print("DX %s" % dieter.x)
-        if dieter.x+dieter.vel <= rand_rechts :
-            dieter.x += dieter.vel
+        if dieter.x+dieter.speed <= rand_rechts :
+            dieter.x += dieter.speed
             dieter.right = True
         else :
             dieter.x = rand_rechts
