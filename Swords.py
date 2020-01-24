@@ -39,6 +39,7 @@ tframe = pg.time.Clock()
 
 walkright_width = walkRight[0].get_width()
 walkleft_width = walkLeft[0].get_width()
+char_width = char.getwidth()
 
 
 
