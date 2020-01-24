@@ -28,7 +28,7 @@ win = pg.display.set_mode((bildBreite, bildHoehe))
 
 pg.display.set_caption("Schlag den Dietron")
 
-rand_links =  player_breite
+rand_links =  player_breite - player_breite
 rand_rechts = bildBreite - player_breite
 
 walkRight = [pg.image.load("CharackterA_R_1.png"), pg.image.load("CharackterA_R_2.png"), pg.image.load("CharackterA_R_3.png"), pg.image.load("CharackterA_R_4.png"), pg.image.load("CharackterA_R_5.png"), pg.image.load("CharackterA_R_6.png"), pg.image.load("CharackterA_R_7.png"), pg.image.load("CharackterA_R_8.png"), pg.image.load("CharackterA_R_9.png")]
@@ -37,9 +37,9 @@ char = pg.image.load("CharakterA_char.png")
 ducking = pg.image.load("Charakter_A_ducking.png")
 tframe = pg.time.Clock()
 
-walkright_width = walkRight[0].get_width()
-walkleft_width = walkLeft[0].get_width()
-char_width = char.getwidth()
+
+char_width = char.get_rect().size
+
 
 
 
@@ -61,7 +61,7 @@ pg.time.set_timer(bgtick, 500)
 
 class player(object):
     def __init__(self, x, y, width, height):
-        self.x = x
+        self.x = x 
         self.y = y
         self.width = width
         self.height = height
@@ -73,9 +73,7 @@ class player(object):
         self.ducking = False
         self.walkCount = 0
         
-class skateboard(object):
-    def __init__(self,x,y,radius,color,facing):
-        self
+
 
 # FrameUpdate
 def redrawGameWindow():
@@ -140,7 +138,7 @@ while run:
     #########################
     keys = pg.key.get_pressed()
 
-    if keys[pg.K_LEFT] and dieter.x > rand_links - player_breite: #geändert
+    if keys[pg.K_LEFT] and dieter.x > rand_links: #geändert
         dieter.x -= dieter.vel
         dieter.left = True
         dieter.rigt = False
@@ -200,6 +198,6 @@ while run:
     tick = pg.time.get_ticks()
 
     print("X: %s  Y: %s" % (dieter.x, dieter.y))
+    print(char_width)
     
 
-    print(walkright_width)
