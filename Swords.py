@@ -4,6 +4,8 @@ from pygame.locals import *
 
 frames = 25
 
+speeeeed = 25
+
 
 bildBreite = 1200
 bildHoehe = 800
@@ -64,7 +66,7 @@ class player(object):
         self.y = y
         self.width = width
         self.height = height
-        self.speed = 20
+        self.speed = speeeeed
         self.isJump = False
         self.jumpCount = 10
         self.left = False
