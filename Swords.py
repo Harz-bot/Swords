@@ -4,7 +4,7 @@ from pygame.locals import *
 
 frames = 25
 
-speeeeed = 25
+speeeeed = 50
 
 
 bildBreite = 1200
