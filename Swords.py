@@ -5,9 +5,9 @@ from pygame.locals import *
 spielerA = 2
 
 
-frames = 20
+frames = 25
 
-speeeeed = 30
+speeeeed = 20
 
 sprungHoehe = 10
 
@@ -80,7 +80,7 @@ tframe = pg.time.Clock()
 
 # Hintergrund laden und mit dem ersten Bild anfangen
 
-bg = [pg.image.load("bg_1.png"), pg.image.load("bg_2.png"), pg.image.load("bg_3.png")]
+bg = pg.image.load("BG_IMG.png")
 background = True
 bgframe = 1
 
@@ -129,7 +129,6 @@ def updateBewegung():
 
     tframe.tick(frames)
             
-    pg.display.update()
 
 
 class playerO(object):
@@ -253,6 +252,9 @@ player = []
 player.append(playerO(player1_startX, start_Hoehe, player_breite, player_hoehe))
 player.append(playerO(B_player1_startX, start_Hoehe, player_breite, player_hoehe))
 
+scrollingbg = False
+negscrollingbg = False
+
 while run:
 
     
@@ -260,12 +262,55 @@ while run:
 
  
     # Erst mal Hintergrund updaten
-    win.blit(bg[bgframe-1], (0,0))
+    #############################################was stimmtn hier nicht?
+    #background X
+    bgX = -1200
     
-    if pg.event.get(bgtick):
+
+   
+        
+
+    if player[0].x > 1000 and player[1].x > 1000:
+        scrollingbg = True
+        player[0].x = 300
+        player[1].x = 300
+        if bgX == 1200:
+            #scrollingbg = False
+            bgX = 0
+        
+        
+        
+    if player[0].x <= 200 and player[1].x <= 200:
+        negscrollingbg = True
+        player[0].x = 900
+        player[1].x = 900
+        if bgX == -3600:
+            #negscrollingbg = False
+            bgX = -2400
+        
+    if scrollingbg is True:
+        bgX += 1200    
+        
+    if negscrollingbg is True:
+        bgX -= 1200
+    
+
+
+   
+        
+            
+
+    win.blit(bg, (bgX,0))
+
+     
+    
+    if pg.event.get(tick):
         bgframe += 1
         if bgframe > 3:
             bgframe = 1
+        
+
+
         
        
     
@@ -275,14 +320,18 @@ while run:
        
     
     # print("DX %s   ---   DY %s" % ( player[1].x, player[1].y) )
-        
+    
+    
            
     #Quit den shit mit ix
     for event in pg.event.get():
         if event.type == pg.QUIT:
             run = False
     
+    #print("Player1",player[0].x, "player2", player[1].x)
+    print(bgX)
     # dann ...
    
     updateBewegung()
+    pg.display.update()
     
